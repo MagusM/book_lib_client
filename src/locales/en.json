@@ -1,0 +1,7 @@
+{
+    "name": "BookLoop",
+    "WelcomePage": {
+        "welcome": "Let's Sign You In",
+        "secondaryWelcome": "Welcome back, you've been missed!"
+    }
+}
