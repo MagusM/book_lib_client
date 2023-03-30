@@ -9,5 +9,7 @@ declare module '@heroicons/react/outline' {
     export const AdjustmentsIcon: ComponentType<IconProps>;
     export const UserIcon: any;
     export const LogoutIcon: any;
+    export const ChevronUpIcon: any;
+    export const ChevronDownIcon: any;
     // Add more icons here as needed
 }
