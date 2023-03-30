@@ -1,11 +1,26 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/svg/logo.svg';
 import avatar from '../assets/svg/avatar.svg';
 import loginBg from '../assets/images/login-bg.png';
+import { RootState, User } from '../store/types';
+import { setUser } from '../store/actions';
 
 const WelcomeScreen: React.FC = () => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.user);
+
+    const handleSubmit = (user: User) => {
+        dispatch(setUser(
+            {
+                id: 1,
+                name: 'test'
+            }
+        ));
+    }
+
     return (
         <div className="flex h-screen flex-col md:flex-row">
             <div className="flex-1 bg-white">

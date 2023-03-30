@@ -3,5 +3,9 @@
     "WelcomePage": {
         "welcome": "Let's Sign You In",
         "secondaryWelcome": "Welcome back, you've been missed!"
+    },
+    "BookPage": {
+        "searchText": "Looking for a book?",
+        "myWishList": "My Wish List"
     }
 }
