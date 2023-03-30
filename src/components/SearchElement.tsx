@@ -7,9 +7,9 @@ interface Props {
 
 const SearchElement: React.FC<Props> = ({ placeholder }) => {
     return (
-        <div className="relative text-gray-600">
+        <div className="relative text-tertiary">
             <input
-                className="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                className="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-full"
                 type="search"
                 name="search"
                 placeholder={placeholder}

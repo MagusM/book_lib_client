@@ -4,28 +4,36 @@ import { Link } from 'react-router-dom';
 import { RootState } from '../store/types';
 import logo from '../assets/svg/logo.svg';
 import { ReactComponent as WishlistIcon } from '../assets/svg/heart.svg';
-import avatar from '../assets/svg/avatar.svg';
 import { SearchElement, Dropdown } from './';
 import { useTranslation } from 'react-i18next';
-import { MenuItem } from './Dropdown';
-import { UserIcon, LogoutIcon } from '@heroicons/react/outline';
+
 
 const BooksTopNavbar: React.FC = () => {
     const { t } = useTranslation();
     const user = useSelector((state: RootState) => state.user.user);
 
     return (
-        <nav className="flex items-center justify-between bg-white shadow-lg px-8 py-2 h-20">
-            <div className="flex items-center">
+        <nav className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white shadow-lg px-8 py-2 h-40 sm:h-20">
+            <div className="flex flex-row items-center justify-between sm:justify-center order-1 mt-4 mb-6 sm:mt-0 sm:mb-0">
                 <img src={logo} alt="Company logo" className="w-32 object-contain" />
+                <div className="inline-flex sm:hidden -mr-6">
+                    <Link to="/wishlist" className="flex items-center sm:mr-4">
+                        <div className='mr-2'>
+                            <WishlistIcon className="iconColorSecondary" width={24} height={24} />
+                        </div>
+                        <div className="text-gray-700 hidden sm:block font-medium">{t("BookPage.myWishList")}</div>
+                    </Link>
+
+                    <Dropdown user={user} />
+                </div>
             </div>
-            <SearchElement placeholder={`${t("BookPage.searchText")}`} />
-            <div className="flex items-center">
-                <Link to="/wishlist" className="flex items-center mr-4">
+            <div className='order-3 w-full sm:w-[600px] sm:order-2'><SearchElement placeholder={`${t("BookPage.searchText")}`} /></div>
+            <div className="hidden sm:flex items-center order-2 sm:order-3 self-end sm:self-center">
+                <Link to="/wishlist" className="flex items-center sm:mr-4">
                     <div className='mr-2'>
                         <WishlistIcon className="iconColorSecondary" width={24} height={24} />
                     </div>
-                    <div className="text-gray-700 font-medium">{t("BookPage.myWishList")}</div>
+                    <div className="text-gray-700 hidden sm:block font-medium">{t("BookPage.myWishList")}</div>
                 </Link>
                 
                 <Dropdown user={user} />

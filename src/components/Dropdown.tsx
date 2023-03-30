@@ -18,7 +18,7 @@ const Dropdown = ({ user }: DropdownProps) => {
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
-        <Menu as="div" className="relative inline-block text-left">
+        <Menu as="div" className="relative inline-block text-left z-30">
             <div>
                 <Menu.Button 
                     className="
@@ -36,8 +36,8 @@ const Dropdown = ({ user }: DropdownProps) => {
                 >
                     <span className="sr-only">Open user menu</span>
                     <img src={avatar} alt="" className="w-7 h-7 mr-2" aria-hidden="true" />
-                    <span className='text-[16px] font-bold'>{user ? user.name : 'John Doe'}</span>
-                    {isOpen ? <ChevronUpIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" /> : <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />}
+                    <span className='text-[16px] font-bold hidden sm:block'>{user ? user.name : 'John Doe'}</span>
+                    <span className='hidden sm:inline-flex'>{isOpen ? <ChevronUpIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" /> : <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />}</span>
                 </Menu.Button>
             </div>
 
