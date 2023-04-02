@@ -17,7 +17,7 @@ const BooksList: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const response = await getAllBooks({ q: 'fantasy+subject:fiction', userId: String(user.user?.id)});
+            const response = await getAllBooks({ q: 'fantasy+subject:fiction', userId: String(user?.id)});
             if (!response) return;
             const { data } = response;
             const bookList = data.map((book: Book) => {

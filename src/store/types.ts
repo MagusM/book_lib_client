@@ -6,8 +6,7 @@ export interface User {
 }
 
 export interface RootState {
-    user: {
-        user: User | null;
-        wishlist: Book[];
-    }
+    user: User | null;
+    wishlist: Book[];
+    search: string
 }

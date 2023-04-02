@@ -31,3 +31,8 @@ export const resetStore = (): Action => ({
     payload: {}
 });
 
+export const searchBooks = (search: string): Action => ({
+    type: 'SEARCH_BOOKS',
+    payload: search
+})
+

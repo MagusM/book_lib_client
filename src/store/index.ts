@@ -7,7 +7,7 @@ import rootReducer from './reducers';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user'],
+    whitelist: ['bookloop'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

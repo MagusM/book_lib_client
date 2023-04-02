@@ -3,31 +3,21 @@ import { Action } from "./actions";
 import Book from "../types/book";
 
 const initialState: RootState = {
-    user: {
-        user: null,
-        wishlist: [],
-    },
+    user: null,
+    wishlist: [],
+    search: ''
 };
 
 
-const userReducer = (state=initialState.user, action: Action) => {
+const userReducer = (state=initialState, action: Action) => {
     switch (action.type) {
         case 'SET_USER':
             return {
                 ...state,
                 user: action.payload
             }
-        case 'ADD_TO_WISHLIST':
-            {
-                if (!action.payload) {
-                    return state;
-                }
-                return {
-                    ...state,
-                    wishlist: [...state.wishlist, ...action.payload].filter(Boolean)
-                }
-            }
-        case 'SYNC_WISHLIST':
+            case 'SYNC_WISHLIST':
+            case 'ADD_TO_WISHLIST':
             {
                 if (!action.payload) {
                     return state;
@@ -42,10 +32,16 @@ const userReducer = (state=initialState.user, action: Action) => {
                 ...state,
                 wishlist: state.wishlist.filter((book: Book) => book.id !== action.payload)
             }
+        case 'SEARCH_BOOKS':
+            return {
+                ...state,
+                search: action.payload
+            }
         case 'RESET_STORE': 
             return {
                 user: null,
-                wishlist: []
+                wishlist: [],
+                search: ''
             }
         default:
             return state;
@@ -53,9 +49,7 @@ const userReducer = (state=initialState.user, action: Action) => {
 };
 
 const rootReducer = (state = initialState, action: Action) => {
-    return {
-        user: userReducer(state.user, action),
-    };
+    return userReducer(state, action);
 };
 
 export default rootReducer;

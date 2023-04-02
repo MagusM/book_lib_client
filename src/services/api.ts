@@ -36,7 +36,7 @@ export const getAllBooks = async ({...params}: {
             params: {
                 q: params.q ? params.q : 'all',
                 page: params.page ? params.page : 1,
-                pageSize: params.pageSize ? params.pageSize : 10,
+                pageSize: params.pageSize ? params.pageSize : 20,
                 userId: params.userId
             },
             headers: {

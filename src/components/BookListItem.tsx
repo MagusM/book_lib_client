@@ -14,21 +14,22 @@ type Props = {
 const BookListItem: React.FC<Props> = ({ book }) => {
     // console.log(book);
     const dispatch = useDispatch();
+    const wishlist = useSelector((state: RootState) => state.wishlist);
     const user = useSelector((state: RootState) => state.user);
 
     const toggleWishlisted = async () => {
         try {
-            if (user.wishlist.includes(book)) {
+            if (wishlist.includes(book)) {
                 console.log('removing book');
                 console.log(book);
-                const response = await deleteFromWishlist({ bookId: book.id, userId: String(user.user?.id)});
+                const response = await deleteFromWishlist({ bookId: book.id, userId: String(user?.id)});
 
                 book.wishlisted = false;
                 dispatch(removeFromWishlist(book.id));
             } else {
                 console.log('adding book');
                 console.log(book);
-                const response = await addBookToWishlist({ books: [book], userId: String(user.user?.id)});
+                const response = await addBookToWishlist({ books: [book], userId: String(user?.id)});
                 
                 book.wishlisted = true;
                 dispatch(addToWishlist(book));
