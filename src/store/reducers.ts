@@ -1,5 +1,6 @@
 import { RootState } from "./types";
 import { Action } from "./actions";
+import Book from "../types/book";
 
 const initialState: RootState = {
     user: {
@@ -17,14 +18,29 @@ const userReducer = (state=initialState.user, action: Action) => {
                 user: action.payload
             }
         case 'ADD_TO_WISHLIST':
-            return {
-                ...state,
-                wishlist: [...state.wishlist, action.payload]
+            {
+                if (!action.payload) {
+                    return state;
+                }
+                return {
+                    ...state,
+                    wishlist: [...state.wishlist, ...action.payload].filter(Boolean)
+                }
+            }
+        case 'SYNC_WISHLIST':
+            {
+                if (!action.payload) {
+                    return state;
+                }
+                return {
+                    ...state,
+                    wishlist: [...state.wishlist, ...action.payload].filter(Boolean)
+                }
             }
         case 'REMOVE_FROM_WISHLIST':
             return {
                 ...state,
-                whishlist: state.wishlist.filter((id: number) => id !== action.payload)
+                wishlist: state.wishlist.filter((book: Book) => book.id !== action.payload)
             }
         case 'RESET_STORE': 
             return {

@@ -1,8 +1,9 @@
 export default interface Book {
-    id: number;
+    id: string;
     title: string;
     author: string;
     imageUrl: string
     description?: string;
     publishDate?: Date;
+    wishlisted:boolean;
  }

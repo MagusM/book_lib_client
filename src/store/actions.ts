@@ -1,3 +1,4 @@
+import { BookInterface } from "../types";
 import { User } from "./types";
 
 export type Action = {
@@ -10,12 +11,17 @@ export const setUser = (user: User | null): Action => ({
     payload: user
 });
 
-export const addToWishlist = (bookId: number): Action => ({
+export const addToWishlist = (book: BookInterface): Action => ({
     type: 'ADD_TO_WISHLIST',
-    payload: bookId
+    payload: [book]
 });
 
-export const removeFromWhishlist = (bookId: number): Action => ({
+export const syncWishlist = (books: BookInterface[]): Action => ({
+    type: 'SYNC_WISHLIST',
+    payload: books
+});
+
+export const removeFromWishlist = (bookId: string): Action => ({
     type: 'REMOVE_FROM_WISHLIST',
     payload: bookId
 });

@@ -4,18 +4,20 @@ import { BookInterface } from '../types';
 import { getAllBooks } from '../services/api';
 import Book from '../types/book';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { resetStore } from '../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetStore, syncWishlist } from '../store/actions';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../store/types';
 
 const BooksList: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector((state: RootState) => state.user);
     const [books, setBooks] = useState<Book[]>([]);
 
     const fetchData = async () => {
         try {
-            const response = await getAllBooks({ q: 'fantasy+subject:fiction'});
+            const response = await getAllBooks({ q: 'fantasy+subject:fiction', userId: String(user.user?.id)});
             if (!response) return;
             const { data } = response;
             const bookList = data.map((book: Book) => {
@@ -26,12 +28,13 @@ const BooksList: React.FC = () => {
                     imageUrl: book.imageUrl,
                     description: book.description,
                     publishDate: book.publishDate ? new Date(book.publishDate) : undefined,
+                    wishlisted: book.wishlisted
                 };
             });
             setBooks(bookList);
         } catch (error: any) {
             console.error('error', error);
-            if (error.message === 'Request failed with status code 403') {
+            if (error.message === 'reset') {
                 localStorage.clear();
 
                 // Remove Authorization header from Axios
@@ -49,6 +52,13 @@ const BooksList: React.FC = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        console.log(books);
+        const wishlistedBooks = books.filter((book: BookInterface) => book.wishlisted);
+        dispatch(syncWishlist(wishlistedBooks));
+    }, [books, dispatch]);
+    
 
     if (books.length === 0) {
         return <div>Loading...</div>;

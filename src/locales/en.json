@@ -2,7 +2,9 @@
     "name": "BookLoop",
     "WelcomePage": {
         "welcome": "Let's Sign You In",
-        "secondaryWelcome": "Welcome back, you've been missed!"
+        "secondaryWelcome": "Welcome back, you've been missed!",
+        "usernameValidationMinLength": "name must be more then 2 characters",
+        "usernameValidationMaxLength": "name must be more then 20 characters"
     },
     "BookPage": {
         "searchText": "Looking for a book?",

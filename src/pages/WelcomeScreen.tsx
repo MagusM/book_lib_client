@@ -1,17 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import logo from '../assets/svg/logo.svg';
 import avatar from '../assets/svg/avatar.svg';
 import loginBg from '../assets/images/login-bg.png';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { setUser } from '../store/actions';
 import debounce from '../utils/debounce';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../store/types';
 import { login } from '../services/api';
-
-const LOGIN_URL = `${process.env.REACT_APP_SERVER_URL}/users/login`;
 
 const WelcomeScreen: React.FC = () => {
     const navigate = useNavigate();
