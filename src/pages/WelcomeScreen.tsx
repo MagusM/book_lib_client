@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import logo from '../assets/svg/logo.svg';
@@ -24,21 +24,38 @@ const WelcomeScreen: React.FC = () => {
         setUsernameDebounced(usernameRef.current);
     }, [setUsernameDebounced]);
 
+    const [error, setError] = useState<string>('');
+
+    function validateInput() {
+        if (usernameRef.current.length === 0) {
+            setError('Username is required');
+            return false;
+        } else if (usernameRef.current.length < 2 || usernameRef.current.length > 20) {
+            setError('Username must be between 2 and 20 characters');
+            return false;
+        } else {
+            setError('');
+            return true;
+        }
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        try {
-            const data = await login(usernameRef.current)
-            const { user, token } = data as any;
-            // Save the token to local storage
-            localStorage.setItem('token', token);
-            // Add the token to axios request headers
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        if (validateInput()) {
+            try {
+                const data = await login(usernameRef.current)
+                const { user, token } = data as any;
+                // Save the token to local storage
+                localStorage.setItem('token', token);
+                // Add the token to axios request headers
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            dispatch(setUser(user));
-            navigate('/books');
-        } catch (error) {
-            console.error(error);
-            //todo: generate error message to screen
+                dispatch(setUser(user));
+                navigate('/books');
+            } catch (error) {
+                console.error(error);
+                //todo: generate error message to screen
+            }
         }
     }
 
@@ -66,6 +83,18 @@ const WelcomeScreen: React.FC = () => {
                             Sign in
                         </button>
                     </form>
+                    {error && (
+                        <p className="text-red-500 text-sm mt-1">
+                            <svg className="inline-block mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    fillRule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 7a1 1 0 112 0v4a1 1 0 11-2 0V7zm1 10a1 1 0 100-2 1 1 0 000 2z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            {error}
+                        </p>
+                    )}
                 </div>
             </div>
             <div className="flex-1 bg-gray-100 bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})`, width: '100%', height: '100vh' }} />
