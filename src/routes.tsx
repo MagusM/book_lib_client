@@ -9,7 +9,7 @@ const AppRoutes = () => {
 
   return (
         <Routes>
-            <Route path='/' element={user ? <Navigate to="/books" /> : <WelcomeScreen />} />
+            <Route path='/' element={!user ? <Navigate to="/books" /> : <WelcomeScreen />} />
             <Route path='/books' element={ user ? <BooksPage /> : <Navigate to="/" />} />
         </Routes>
   )

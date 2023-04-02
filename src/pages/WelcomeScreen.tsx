@@ -9,8 +9,9 @@ import { setUser } from '../store/actions';
 import debounce from '../utils/debounce';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../store/types';
+import { login } from '../services/api';
 
-const LOGIN_URL = `${process.env.REACT_APP_SERVER_URL}users/login`;
+const LOGIN_URL = `${process.env.REACT_APP_SERVER_URL}/users/login`;
 
 const WelcomeScreen: React.FC = () => {
     const navigate = useNavigate();
@@ -27,22 +28,17 @@ const WelcomeScreen: React.FC = () => {
         setUsernameDebounced(usernameRef.current);
     }, [setUsernameDebounced]);
 
-    useEffect(() => {
-        console.log('userFromState', userFromState);
-    }, [userFromState])
-    
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response: AxiosResponse<any, any> = await axios.post(LOGIN_URL, { name: usernameRef.current });
-            const { data } = response.data;
-            const { user, token } = data;
+            // const response: AxiosResponse<any, any> = await axios.post(LOGIN_URL, { name: usernameRef.current });
+            const data = await login(usernameRef.current)
+            const { user, token } = data as any;
             // Save the token to local storage
             localStorage.setItem('token', token);
             // Add the token to axios request headers
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            // console.log(user);
+
             dispatch(setUser(user));
             navigate('/books');
         } catch (error) {
