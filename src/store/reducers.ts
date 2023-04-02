@@ -4,7 +4,6 @@ import { Action } from "./actions";
 const initialState: RootState = {
     user: {
         user: null,
-        loggedIn: false,
         wishlist: [],
     },
 };
@@ -16,11 +15,6 @@ const userReducer = (state=initialState.user, action: Action) => {
             return {
                 ...state,
                 user: action.payload
-            }
-        case "SET_LOGGED_IN":
-            return {
-                ...state,
-                loggedIn: action.payload
             }
         case 'ADD_TO_WISHLIST':
             return {

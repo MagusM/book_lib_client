@@ -5,15 +5,13 @@ export type Action = {
     payload: any
 }
 
-export const setUser = (user: User | null): Action => ({
-    type: 'SET_USER',
-    payload: user
-});
-
-export const setLoggedIn = (loggedIn: boolean): Action => ({
-    type: "SET_LOGGED_IN",
-    payload: loggedIn
-});
+export const setUser = (user: User | null): Action => {
+    console.log(user);
+    return {
+        type: 'SET_USER',
+        payload: user
+    }
+};
 
 export const addToWishlist = (bookId: number): Action => ({
     type: 'ADD_TO_WISHLIST',

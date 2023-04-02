@@ -6,7 +6,6 @@ export interface User {
 export interface RootState {
     user: {
         user: User | null;
-        loggedIn: boolean;
         wishlist: number[];
     }
 }

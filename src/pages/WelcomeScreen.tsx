@@ -1,24 +1,54 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/svg/logo.svg';
 import avatar from '../assets/svg/avatar.svg';
 import loginBg from '../assets/images/login-bg.png';
-import { RootState, User } from '../store/types';
+import axios, { AxiosResponse } from 'axios';
 import { setUser } from '../store/actions';
+import debounce from '../utils/debounce';
+import { useNavigate } from 'react-router-dom';
+import { RootState } from '../store/types';
+
+const LOGIN_URL = `${process.env.REACT_APP_SERVER_URL}users/login`;
 
 const WelcomeScreen: React.FC = () => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.user);
+    const usernameRef = useRef<string>('');
+    const userFromState = useSelector((state: RootState) => state.user.user);
 
-    const handleSubmit = (user: User) => {
-        dispatch(setUser(
-            {
-                id: 1,
-                name: 'test'
-            }
-        ));
+    const setUsernameDebounced = useRef(debounce((value: string) => {
+        usernameRef.current = value;
+    }, 500)).current;
+
+    useEffect(() => {
+        setUsernameDebounced(usernameRef.current);
+    }, [setUsernameDebounced]);
+
+    useEffect(() => {
+        console.log('userFromState', userFromState);
+    }, [userFromState])
+    
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response: AxiosResponse<any, any> = await axios.post(LOGIN_URL, { name: usernameRef.current });
+            const { data } = response.data;
+            const { user, token } = data;
+            // Save the token to local storage
+            localStorage.setItem('token', token);
+            // Add the token to axios request headers
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            // console.log(user);
+            dispatch(setUser(user));
+            navigate('/books');
+        } catch (error) {
+            console.error(error);
+            //todo: generate error message to screen
+        }
     }
 
     return (
@@ -31,10 +61,15 @@ const WelcomeScreen: React.FC = () => {
                     <hr className="my-6 border-gray-300" />
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('WelcomePage.welcome')}</h2>
                     <p className="text-gray-500 mb-8">{t('WelcomePage.secondaryWelcome')}</p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="flex items-center border rounded-full py-2 px-4 mb-4">
                             <img src={avatar} alt="User icon" className="h-6 w-6 mr-2" />
-                            <input type="text" placeholder="Username" className="bg-transparent outline-none flex-1" />
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                className="bg-transparent outline-none flex-1"
+                                onChange={(e) => setUsernameDebounced(e.target.value)}
+                            />
                         </div>
                         <button type="submit" className="bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
                             Sign in
