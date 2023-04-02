@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import avatar from '../assets/svg/avatar.svg';
@@ -14,11 +14,26 @@ function classNames(...classes: string[]) {
 
 const Dropdown = ({ user }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false); // add state variable to keep track of open/close state
+    const ref = useRef <HTMLDivElement>(null);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        window.addEventListener('click', handleClickOutside);
+
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+    }, [ref]);
+
     return (
-        <Menu as="div" className="relative inline-block text-left z-30">
+        <Menu as="div" ref={ref} className="relative inline-block text-left z-30">
             <div>
                 <Menu.Button 
                     className="
