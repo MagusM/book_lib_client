@@ -37,8 +37,6 @@ const WelcomeScreen: React.FC = () => {
             // Add the token to axios request headers
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            console.log(axios.defaults.headers);
-
             dispatch(setUser(user));
             navigate('/books');
         } catch (error) {

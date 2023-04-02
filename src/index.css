@@ -19,3 +19,7 @@ code {
 .iconColorSecondary path {
   fill: #12203B;
 }
+
+.iconColorNone path {
+  fill: none;
+}

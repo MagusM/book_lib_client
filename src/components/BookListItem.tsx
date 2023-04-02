@@ -17,7 +17,7 @@ const BookListItem: React.FC<Props> = ({ book }) => {
                         sm:h-16 sm:w-16
                     '
                 >
-                    <img className="z-100 h-5 w-5" src={heartIcon} alt="Add to favorites" />
+                    <img className="z-100 h-5 w-5 iconColorNone" src={heartIcon} alt="Add to favorites" />
                 </div>
                 <img className="object-fill h-full w-full rounded-xl" src={book.imageUrl} alt={`Cover for ${book.title}`} />
             </div>
