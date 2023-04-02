@@ -19,12 +19,17 @@ const userReducer = (state=initialState.user, action: Action) => {
         case 'ADD_TO_WISHLIST':
             return {
                 ...state,
-                whishlist: [...state.wishlist, action.payload]
+                wishlist: [...state.wishlist, action.payload]
             }
         case 'REMOVE_FROM_WISHLIST':
             return {
                 ...state,
                 whishlist: state.wishlist.filter((id: number) => id !== action.payload)
+            }
+        case 'RESET_STORE': 
+            return {
+                user: null,
+                wishlist: []
             }
         default:
             return state;

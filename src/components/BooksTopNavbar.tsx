@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const BooksTopNavbar: React.FC = () => {
     const { t } = useTranslation();
-    const user = useSelector((state: RootState) => state.user.user);
+    const user = useSelector((state: RootState) => state.user);
 
     return (
         <nav className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white shadow-lg px-8 py-2 h-40 sm:h-20">

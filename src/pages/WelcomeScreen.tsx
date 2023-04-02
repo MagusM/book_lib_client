@@ -18,7 +18,6 @@ const WelcomeScreen: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const usernameRef = useRef<string>('');
-    const userFromState = useSelector((state: RootState) => state.user.user);
 
     const setUsernameDebounced = useRef(debounce((value: string) => {
         usernameRef.current = value;
@@ -31,13 +30,14 @@ const WelcomeScreen: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // const response: AxiosResponse<any, any> = await axios.post(LOGIN_URL, { name: usernameRef.current });
             const data = await login(usernameRef.current)
             const { user, token } = data as any;
             // Save the token to local storage
             localStorage.setItem('token', token);
             // Add the token to axios request headers
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            console.log(axios.defaults.headers);
 
             dispatch(setUser(user));
             navigate('/books');

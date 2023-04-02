@@ -20,3 +20,8 @@ export const removeFromWhishlist = (bookId: number): Action => ({
     payload: bookId
 });
 
+export const resetStore = (): Action => ({
+    type: 'RESET_STORE',
+    payload: {}
+});
+

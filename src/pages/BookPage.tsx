@@ -7,7 +7,6 @@ import {BooksTopNavbar, BooksList} from '../components/';
 
 const BooksPage: React.FC = () => {
     const { t } = useTranslation();
-    // const dispatch = useDispatch();
     // const books = useSelector((state: RootState) => state.books);
     // const [searchTerm, setSearchTerm] = useState('');
 
@@ -24,7 +23,7 @@ const BooksPage: React.FC = () => {
             className='flex flex-col w-full h-full'
         >
             <BooksTopNavbar />
-            <BooksList books={[]} />
+            <BooksList />
         </div>
     );
 };

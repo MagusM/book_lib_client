@@ -3,9 +3,13 @@ import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import avatar from '../assets/svg/avatar.svg';
 import User from '../types/user';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { resetStore } from '../store/actions';
 
 interface DropdownProps {
-    user: User | null
+    user: User|any
 }
 
 function classNames(...classes: string[]) {
@@ -15,8 +19,24 @@ function classNames(...classes: string[]) {
 const Dropdown = ({ user }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false); // add state variable to keep track of open/close state
     const ref = useRef <HTMLDivElement>(null);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const handleSignOut = () => {
+        // Clear local storage
+        localStorage.clear();
+
+        // Remove Authorization header from Axios
+        delete axios.defaults.headers.common['Authorization'];
+
+        // Reset the app store
+        dispatch(resetStore());
+
+        // Redirect to "/"
+        navigate('/');
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -51,7 +71,7 @@ const Dropdown = ({ user }: DropdownProps) => {
                 >
                     <span className="sr-only">Open user menu</span>
                     <img src={avatar} alt="" className="w-7 h-7 mr-2" aria-hidden="true" />
-                    <span className='text-[16px] font-bold hidden sm:block'>{user ? user.name : 'John Doe'}</span>
+                    <span className='text-[16px] font-bold hidden sm:block'>{user.user?.name}</span>
                     <span className='hidden sm:inline-flex'>{isOpen ? <ChevronUpIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" /> : <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />}</span>
                 </Menu.Button>
             </div>
@@ -70,10 +90,10 @@ const Dropdown = ({ user }: DropdownProps) => {
                     className="absolute right-0 w-60 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <MenuItem>
-                        <span className='font-bold text-[15px]'>{user ? user.name : 'John Doe'}</span>
+                        <span className='font-bold text-[15px]'>{user.user?.name}</span>
                     </MenuItem>
                     <MenuItem>
-                        <div className="flex items-center">
+                        <div className="flex items-center" onClick={handleSignOut}>
                             <LogoutIcon className="w-7 h-7 -mr-5" aria-hidden="true" />
                             <span className='flex-1 text-center font-bold text-[15px]'>Sign out</span>
                         </div>

@@ -9,7 +9,7 @@ type Props = {
 const BookListItem: React.FC<Props> = ({ book }) => {
     return (
         <div className="border border-gray-200 rounded-md overflow-hidden">
-            <img className="h-56 w-full object-cover" src={book.image} alt={`Cover for ${book.title}`} />
+            <img className="h-56 w-full object-cover" src={book.imageUrl} alt={`Cover for ${book.title}`} />
             <div className="p-4">
                 <h3 className="text-xl font-medium text-gray-900">{book.title}</h3>
                 <p className="text-gray-500">{book.author}</p>

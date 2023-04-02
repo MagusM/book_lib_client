@@ -2,7 +2,7 @@ export default interface Book {
     id: number;
     title: string;
     author: string;
-    image: string
+    imageUrl: string
     description?: string;
     publishDate?: Date;
  }
