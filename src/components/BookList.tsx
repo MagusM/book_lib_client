@@ -10,7 +10,7 @@ const BooksList: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const response = await getAllBooks({});
+            const response = await getAllBooks({ q: 'fantasy+subject:fiction'});
             if (!response) return; // Check if response is undefined
             const { data } = response;
             console.log('data',data);
@@ -41,7 +41,7 @@ const BooksList: React.FC = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 bg-[#F2F4F9]">
+        <div className="grid grid-cols-2 gap-3 bg-[#F2F4F9] p-3 sm:grid-cols-4 sm:py-10 w-full sm:px-[300px] sm:gap-6 mx-auto">
             {books.map((book: BookInterface) => (
                 <BookListItem key={book.id} book={book} />
             ))}

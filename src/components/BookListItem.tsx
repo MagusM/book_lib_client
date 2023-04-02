@@ -8,15 +8,22 @@ type Props = {
 
 const BookListItem: React.FC<Props> = ({ book }) => {
     return (
-        <div className="border border-gray-200 rounded-md overflow-hidden">
-            <img className="h-56 w-full object-cover" src={book.imageUrl} alt={`Cover for ${book.title}`} />
-            <div className="p-4">
-                <h3 className="text-xl font-medium text-gray-900">{book.title}</h3>
-                <p className="text-gray-500">{book.author}</p>
-                <button className="flex items-center text-gray-400 hover:text-gray-500">
-                    <img className="h-5 w-5 mr-1" src={heartIcon} alt="Add to favorites" />
-                    Add to Favorites
-                </button>
+        <div className="w-[180px] sm:w-[280px] flex flex-col justify-between border border-gray-100 rounded-xl overflow-hidden p-2 bg-white">
+            <div className='relative h-3/4 w-full p-2 sm:min-h-[85%]'>
+                <div 
+                    className='
+                        flex h-14 w-14 absolute rounded-lg top-3 right-3 justify-center items-center 
+                        backdrop-blur backdrop-opacity-90 border-gray-100
+                        sm:h-16 sm:w-16
+                    '
+                >
+                    <img className="z-100 h-5 w-5" src={heartIcon} alt="Add to favorites" />
+                </div>
+                <img className="object-fill h-full w-full rounded-xl" src={book.imageUrl} alt={`Cover for ${book.title}`} />
+            </div>
+            <div className="h-1/4 p-2 w-full flex flex-col justify-between">
+                <h3 className="text-sm font-bold text-secondary w-full line-clamp-2 sm:line-clamp-5">{book.title}</h3>
+                <p className="text-tertiary text-[12px] mt-2 w-full truncate line-clamp-2 sm:mb-2 sm:mt-1">by {book.author}</p>
             </div>
         </div>
     );
