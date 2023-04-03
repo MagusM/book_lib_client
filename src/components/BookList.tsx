@@ -76,8 +76,8 @@ const BooksList: React.FC = () => {
     }, [showWishlist, filteredBooks, wishlist]);
 
     return (
-        <div className="flex flex-col min-h-full justify-start items-start p-3 bg-[#F2F4F9]">
-            {search && displayedBooks.length > 0 && (
+        <div className="flex flex-col min-h-full h-screen justify-start items-start p-3 bg-[#F2F4F9]">
+            {search && (
                 <div className="text-secondary font-bold my-4 text-[14px] sm:px-[300px]">
                     {displayedBooks.length} results for &quot;{search}&quot;
                 </div>
