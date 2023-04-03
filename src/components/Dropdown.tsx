@@ -80,7 +80,7 @@ const Dropdown = () => {
                     <MenuItem>
                         <div className="flex items-center" onClick={handleSignOut}>
                             <LogoutIcon className="w-7 h-7 -mr-5" aria-hidden="true" />
-                            <span className='flex-1 text-center font-bold text-[15px]'>Sign out</span>
+                            <div className='flex-1 text-center font-bold text-[15px]'>Sign out</div>
                         </div>
                     </MenuItem>
                 </Menu.Items>

@@ -23,6 +23,7 @@ const userReducer = (state=initialState, action: Action) => {
                 if (!action.payload) {
                     return state;
                 }
+                console.log([...state.wishlist, ...action.payload].filter(Boolean));
                 return {
                     ...state,
                     wishlist: [...state.wishlist, ...action.payload].filter(Boolean)

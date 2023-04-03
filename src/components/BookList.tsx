@@ -14,12 +14,14 @@ const BooksList: React.FC = () => {
     const showWishlist = useSelector((state: RootState) => state.showWishlist);
     const wishlist = useSelector((state: RootState) => state.wishlist);
     const [books, setBooks] = useState<Book[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     const fetchData = useCallback(async () => {
         try {
             const response = await getAllBooks({
                 q: 'fantasy+subject:fiction',
                 userId: String(user?.id),
+                page: currentPage
             });
             if (!response) return;
             const { data } = response;
@@ -34,11 +36,11 @@ const BooksList: React.FC = () => {
         } catch (error) {
             console.error('error', error);
         }
-    }, [user]);
+    }, [user, currentPage]);
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, [fetchData, currentPage]);
 
     const fetchWlistedBooks = useCallback(async () => {
         if (!user) {
@@ -46,9 +48,13 @@ const BooksList: React.FC = () => {
             return;
         }
         const data = await fetchWishlistedBooks({ userId: String(user.id) });
-        if (data.wishlist.books) {
+        console.log('fetchWlistedBooks', data);
+        console.log('wishlist state', wishlist);
+        if (data && data.wishlist.books) {
             dispatch(syncWishlist(data.wishlist.books));
         }
+
+        console.log('wishlist', wishlist);
     }, [user, dispatch]);
 
     useEffect(() => {
@@ -75,6 +81,12 @@ const BooksList: React.FC = () => {
         );
     }, [showWishlist, filteredBooks, wishlist]);
 
+    const paginate = (pageNumber: number) => {
+        console.log(`paginate: ${pageNumber}`);
+        setCurrentPage(pageNumber);
+    };
+
+
     return (
         <div className="flex flex-col min-h-full h-screen justify-start items-start p-3 bg-[#F2F4F9]">
             {search && (
@@ -82,13 +94,46 @@ const BooksList: React.FC = () => {
                     {displayedBooks.length} results for &quot;{search}&quot;
                 </div>
             )}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[300px] sm:gap-6 mx-auto">
-                {displayedBooks.map((book: BookInterface) => (
-                    <BookListItem key={book.id} book={book} />
-                ))}
-            </div>
+            {showWishlist && wishlist && (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[300px] sm:gap-6 mx-auto">
+                    {Array.from(new Set(wishlist)).map((book: BookInterface) => (
+                        <BookListItem key={book.id + Math.random()} book={book} />
+                    ))}
+                </div>
+            )}
+            {!showWishlist && (
+            <>
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[300px] sm:gap-6 mx-auto">
+                        {books.map((book: BookInterface) => (
+                            <BookListItem key={book.id} book={book} />
+                        ))}
+                    </div>
+                    <div className="flex justify-center mt-8 w-full py-4">
+                        <div
+                            className="bg-white text-gray-700 font-bold py-2 px-4 border rounded-l-full mr-2 cursor-pointer"
+                            onClick={() => paginate(currentPage - 1)}
+                        >
+                            Prev
+                        </div>
+                        <div
+                            className='bg-primary text-white current-page font-bold py-2 px-4 border rounded-full'
+                        >
+                            {currentPage}
+                        </div>
+                        <div
+                            className="bg-white text-gray-700 font-bold py-2 px-4 border rounded-r-full ml-2 cursor-pointer"
+                            onClick={() => {
+                                console.log('clicked');
+                                paginate(currentPage + 1)
+                            }}
+                        >
+                            Next
+                        </div>
+                    </div>
+            </>)}
         </div>
     );
+
 };
 
 export default BooksList;

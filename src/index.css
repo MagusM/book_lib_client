@@ -20,6 +20,12 @@ code {
   fill: #12203B;
 }
 
+.iconColorPrimary path {
+  fill: #FC2986;
+}
+
+
+
 .iconColorWhite path {
   fill: white;
 }

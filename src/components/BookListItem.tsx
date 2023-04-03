@@ -22,13 +22,11 @@ const BookListItem: React.FC<Props> = ({ book }) => {
         try {
             if (wishlist.includes(book)) {
                 console.log('removing book');
-                console.log(book);
                 await deleteFromWishlist({ bookId: book.id, userId: String(user?.id)});
 
                 dispatch(removeFromWishlist(book.id));
             } else {
                 console.log('adding book');
-                console.log(book);
                 await addBookToWishlist({ books: [book], userId: String(user?.id)});
                 
                 dispatch(addToWishlist(book));

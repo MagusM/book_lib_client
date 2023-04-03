@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState } from '../store/types';
 import logo from '../assets/svg/logo.svg';
 import { ReactComponent as WishlistIcon } from '../assets/svg/heart.svg';
@@ -11,7 +10,6 @@ import { setShowWishlist } from '../store/actions';
 
 const BooksTopNavbar: React.FC = () => {
     const { t } = useTranslation();
-    const user = useSelector((state: RootState) => state.user);
     const showWishlist = useSelector((state: RootState) => state.showWishlist);
     const dispatch = useDispatch();
 
@@ -26,7 +24,7 @@ const BooksTopNavbar: React.FC = () => {
                 <div className="inline-flex sm:hidden -mr-6">
                     <div className="flex items-center sm:mr-4">
                         <div className='mr-2' onClick={toggleShowWishlist}>
-                            <WishlistIcon className="iconColorSecondary" width={24} height={24} />
+                            <WishlistIcon className={`${showWishlist ? 'iconColorPrimary' : 'iconColorSecondary'}`} width={24} height={24} />
                         </div>
                         <div className="text-gray-700 hidden sm:block font-medium">{t("BookPage.myWishList")}</div>
                     </div>
