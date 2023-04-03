@@ -69,4 +69,4 @@ const BookListItem: React.FC<Props> = ({ book }) => {
     );
 };
 
-export default BookListItem;
+export default React.memo(BookListItem);

@@ -25,8 +25,6 @@ const WelcomeScreen: React.FC = () => {
         setUsernameDebounced(usernameRef.current);
     }, [setUsernameDebounced]);
 
-    
-
     function validateInput() {
         let errMessage = '';
         if (usernameRef.current.length === 0) {
@@ -60,17 +58,17 @@ const WelcomeScreen: React.FC = () => {
     }
 
     return (
-        <div className="flex h-screen flex-col md:flex-row">
-            <div className="flex-1 bg-white">
-                <div className="max-w-3xl mx-auto px-4 py-4">
-                    <div className="flex items-center justify-start">
+        <div className="flex h-screen flex-col md:flex-row w-full">
+            <div className="flex-1 bg-white flex w-full h-full justify-center py-20 sm:py-56">
+                <div className="sm:w-[50%] w-[95%] mx-auto px-4 sm:py-4">
+                    <div className="flex items-center justify-start mb-7 sm:mb-0">
                         <img src={logo} alt="Company logo" className="w-36 object-contain" />
                     </div>
-                    <hr className="my-6 border-gray-300" />
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('WelcomePage.welcome')}</h2>
-                    <p className="text-gray-500 mb-8">{t('WelcomePage.secondaryWelcome')}</p>
+                    <hr className="my-6 border-gray-300 hidden sm:block sm:mb-20" />
+                    <h2 className="text-3xl font-bold text-gray-900 sm:mb-4">{t('WelcomePage.welcome')}</h2>
+                    <p className="text-gray-500 mb-10 sm:mb-20">{t('WelcomePage.secondaryWelcome')}</p>
                     <form onSubmit={handleSubmit}>
-                        <div className="flex items-center border rounded-full py-2 px-4 mb-4">
+                        <div className="relative flex items-center border rounded-md py-2 px-4 mb-4 h-[50px]">
                             <img src={avatar} alt="User icon" className="h-6 w-6 mr-2" />
                             <input
                                 type="text"
@@ -78,12 +76,18 @@ const WelcomeScreen: React.FC = () => {
                                 className="bg-transparent outline-none flex-1"
                                 onChange={(e) => setUsernameDebounced(e.target.value)}
                             />
+                            <label
+                                htmlFor="input"
+                                className="absolute -top-1.5 left-3 bg-white px-2 font-bold text-tertiary text-[10px]"
+                            >
+                                User Name
+                            </label>
                         </div>
                         <button 
                             type="submit" 
-                            className={`bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full`}
+                            className={`bg-primary hover:bg-blue-600 text-white text-[12px] h-[50px] font-bold py-2 px-4 rounded-md w-full`}
                         >
-                            Sign in
+                            SIGN IN
                         </button>
                     </form>
                     {error && (
@@ -100,7 +104,7 @@ const WelcomeScreen: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div className="flex-1 bg-gray-100 bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})`, width: '100%', height: '100vh' }} />
+            <div className="flex-1 -mt-[200px] sm:mt-0 w-1/2 bg-gray-100 bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})`, width: '150%', height: '100vh' }} />
         </div>
     );
 };
