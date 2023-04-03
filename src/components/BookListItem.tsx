@@ -39,7 +39,6 @@ const BookListItem: React.FC<Props> = ({ book }) => {
     }
 
     useEffect(() => {
-        console.log('wishlist', { wishlist });
         setBookWishlisted(() => wishlist.includes(book));
     }, [wishlist])
     

@@ -46,9 +46,6 @@ export const getAllBooks = async ({...params}: {
         return response.data;
     } catch (error: any) {
         console.error(error.message);
-        if (error.message === 'Request failed with status code 403' || 'Request failed with status code 401') {
-            throw new Error('reset');
-        }
     }
 }
 
