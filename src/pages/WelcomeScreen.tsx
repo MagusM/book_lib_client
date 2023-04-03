@@ -85,13 +85,14 @@ const WelcomeScreen: React.FC = () => {
                         </div>
                         <button 
                             type="submit" 
-                            className={`bg-primary hover:bg-blue-600 text-white text-[12px] h-[50px] font-bold py-2 px-4 rounded-md w-full`}
+                            className={`bg-primary hover:bg-secondary text-white text-[12px] h-[50px] font-bold py-2 px-4 rounded-md w-full`}
+                            style={{ WebkitTapHighlightColor: 'transparent' }}
                         >
                             SIGN IN
                         </button>
                     </form>
                     {error && (
-                        <p className="text-red-500 text-sm mt-1">
+                        <p className="text-red-500 text-sm py-2 mt-3 mb-3">
                             <svg className="inline-block mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                     fillRule="evenodd"
@@ -104,7 +105,7 @@ const WelcomeScreen: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div className="flex-1 -mt-[200px] sm:mt-0 w-1/2 bg-gray-100 bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})`, width: '150%', height: '100vh' }} />
+            <div className="flex-1 w-full -mt-[200px] sm:mt-0 bg-gray-100 bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})`, width: '100%', height: '100vh' }} />
         </div>
     );
 };
