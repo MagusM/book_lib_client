@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import logo from '../assets/svg/logo.svg';
 import avatar from '../assets/svg/avatar.svg';
 import loginBg from '../assets/images/login-bg.png';
-import axios from 'axios';
+import { axiosInstance as axios } from '../hooks/useAxios';
 import { setUser } from '../store/actions';
 import debounce from '../utils/debounce';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ const WelcomeScreen: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const usernameRef = useRef<string>('');
+    const [error, setError] = useState<string>('');
 
     const setUsernameDebounced = useRef(debounce((value: string) => {
         usernameRef.current = value;
@@ -24,19 +25,18 @@ const WelcomeScreen: React.FC = () => {
         setUsernameDebounced(usernameRef.current);
     }, [setUsernameDebounced]);
 
-    const [error, setError] = useState<string>('');
+    
 
     function validateInput() {
+        let errMessage = '';
         if (usernameRef.current.length === 0) {
-            setError('Username is required');
-            return false;
+            errMessage = 'Username is required';
         } else if (usernameRef.current.length < 2 || usernameRef.current.length > 20) {
-            setError('Username must be between 2 and 20 characters');
-            return false;
-        } else {
-            setError('');
-            return true;
+            errMessage = 'Username must be between 2 and 20 characters';
         }
+        setError(errMessage);
+
+        return !errMessage;
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -79,7 +79,10 @@ const WelcomeScreen: React.FC = () => {
                                 onChange={(e) => setUsernameDebounced(e.target.value)}
                             />
                         </div>
-                        <button type="submit" className="bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
+                        <button 
+                            type="submit" 
+                            className={`bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full`}
+                        >
                             Sign in
                         </button>
                     </form>

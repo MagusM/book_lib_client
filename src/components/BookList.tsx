@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import BookListItem from './BookListItem';
 import { BookInterface } from '../types';
-import { getAllBooks } from '../services/api';
+import { fetchWishlistedBooks, getAllBooks } from '../services/api';
 import Book from '../types/book';
-import axios from 'axios';
+import {axiosInstance as axios} from '../hooks/useAxios';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetStore, syncWishlist } from '../store/actions';
 import { useNavigate } from 'react-router-dom';
@@ -26,9 +26,7 @@ const BooksList: React.FC = () => {
                     title: book.title,
                     author: book.author,
                     imageUrl: book.imageUrl,
-                    description: book.description,
-                    publishDate: book.publishDate ? new Date(book.publishDate) : undefined,
-                    wishlisted: book.wishlisted
+                    description: book.description
                 };
             });
             setBooks(bookList);
@@ -53,10 +51,17 @@ const BooksList: React.FC = () => {
         fetchData();
     }, []);
 
+    const fetchWlistedBooks = async () => {
+        if (user) {
+            const data = await fetchWishlistedBooks({ userId: user.id });
+            if (data.wishlist.books) {
+                dispatch(syncWishlist(data.wishlist.books));
+            }
+        }
+    }
+
     useEffect(() => {
-        console.log(books);
-        const wishlistedBooks = books.filter((book: BookInterface) => book.wishlisted);
-        dispatch(syncWishlist(wishlistedBooks));
+        fetchWlistedBooks();
     }, [books, dispatch]);
     
 

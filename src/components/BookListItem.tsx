@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BookInterface } from '../types';
 import { ReactComponent as HeartIcon } from '../assets/svg/heart.svg';
 import { ReactComponent as OutlinedHeart } from '../assets/svg/outlined-heart.svg';
@@ -16,6 +16,7 @@ const BookListItem: React.FC<Props> = ({ book }) => {
     const dispatch = useDispatch();
     const wishlist = useSelector((state: RootState) => state.wishlist);
     const user = useSelector((state: RootState) => state.user);
+    const [bookWishlisted, setBookWishlisted] = useState<boolean>(false);
 
     const toggleWishlisted = async () => {
         try {
@@ -24,14 +25,12 @@ const BookListItem: React.FC<Props> = ({ book }) => {
                 console.log(book);
                 const response = await deleteFromWishlist({ bookId: book.id, userId: String(user?.id)});
 
-                book.wishlisted = false;
                 dispatch(removeFromWishlist(book.id));
             } else {
                 console.log('adding book');
                 console.log(book);
                 const response = await addBookToWishlist({ books: [book], userId: String(user?.id)});
                 
-                book.wishlisted = true;
                 dispatch(addToWishlist(book));
             }
         } catch (err) {
@@ -40,8 +39,9 @@ const BookListItem: React.FC<Props> = ({ book }) => {
     }
 
     useEffect(() => {
-      console.log('state user', {user});
-    }, [user])
+        console.log('wishlist', { wishlist });
+        setBookWishlisted(() => wishlist.includes(book));
+    }, [wishlist])
     
 
 
@@ -57,7 +57,7 @@ const BookListItem: React.FC<Props> = ({ book }) => {
                     onClick={toggleWishlisted}
                 >
                     {
-                        book.wishlisted ? <HeartIcon /> : <OutlinedHeart className='iconColorWhite' />
+                        bookWishlisted ? <HeartIcon /> : <OutlinedHeart className='iconColorWhite' />
                     }
                 </div>
                 <img className="object-fill h-full w-full rounded-xl" src={book.imageUrl} alt={`Cover for ${book.title}`} />

@@ -4,6 +4,4 @@ export default interface Book {
     author: string;
     imageUrl: string
     description?: string;
-    publishDate?: Date;
-    wishlisted:boolean;
  }

@@ -1,6 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { DateTime } from 'luxon';
-import { BookInterface } from '../types';
+import { AxiosResponse } from 'axios';
+import { axiosInstance as axios } from '../hooks/useAxios';
 import Book from '../types/book';
 
 
@@ -62,22 +61,34 @@ export const addBookToWishlist = async ({ books, userId}: {books: Book[], userId
 
         console.log(response);
 
-        return true;
+        return response.data;
     } catch (error) {
         console.error(error);
     }
 }
 
-export const deleteFromWishlist = async({bookId, userId}: {bookId: string, userId: string}) => {
+export const deleteFromWishlist = async ({bookId, userId}: {bookId: string, userId: string}) => {
     try {
         const response = await axios.delete(`${SERVER_BASE_URL}/wishlist/${userId}/${bookId}`, {
             headers: {
                 Authorization: `Bearer: ${localStorage.getItem('token')}`
             }});
 
-        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-        return true;
+export const fetchWishlistedBooks = async ({userId}: {userId: string}) => {
+    try {
+        const response = await axios.get(`${SERVER_BASE_URL}/wishlist/${userId}`, {
+            headers: {
+                Authorization: `Bearer: ${localStorage.getItem('token')}`
+            }
+        });
+
+        return response.data;
     } catch (error) {
         console.error(error);
     }

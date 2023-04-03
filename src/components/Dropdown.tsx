@@ -4,7 +4,7 @@ import { LogoutIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/out
 import avatar from '../assets/svg/avatar.svg';
 import User from '../types/user';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance as axios } from '../hooks/useAxios';
 import { useDispatch } from 'react-redux';
 import { resetStore } from '../store/actions';
 
