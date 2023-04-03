@@ -8,5 +8,6 @@ export interface User {
 export interface RootState {
     user: User | null;
     wishlist: Book[];
-    search: string
+    search: string;
+    showWishlist: boolean;
 }

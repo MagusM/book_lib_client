@@ -5,7 +5,8 @@ import Book from "../types/book";
 const initialState: RootState = {
     user: null,
     wishlist: [],
-    search: ''
+    search: '',
+    showWishlist: false
 };
 
 
@@ -37,11 +38,17 @@ const userReducer = (state=initialState, action: Action) => {
                 ...state,
                 search: action.payload
             }
+        case 'SET_SHOW_WISHLIST':
+            return {
+                ...state,
+                showWishlist: action.payload
+            }
         case 'RESET_STORE': 
             return {
                 user: null,
                 wishlist: [],
-                search: ''
+                search: '',
+                showWishlist: false
             }
         default:
             return state;

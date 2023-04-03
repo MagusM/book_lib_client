@@ -36,3 +36,8 @@ export const searchBooks = (search: string): Action => ({
     payload: search
 })
 
+export const setShowWishlist = (showWishlist: boolean): Action => ({
+    type: 'SET_SHOW_WISHLIST',
+    payload: showWishlist
+});
+
