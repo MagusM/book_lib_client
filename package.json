@@ -1,6 +1,11 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "author": {
+    "name": "Simon Mor",
+    "email": "simomor@gmail.com",
+    "url": "https://simonmor.com"
+  },
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.13",
