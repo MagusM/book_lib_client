@@ -2,9 +2,6 @@ import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import avatar from '../assets/svg/avatar.svg';
-import User from '../types/user';
-import { useNavigate } from 'react-router-dom';
-import { axiosInstance as axios } from '../hooks/useAxios';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetStore } from '../store/actions';
 import { RootState } from '../store/types';
@@ -41,7 +38,7 @@ const Dropdown = () => {
     }, [ref]);
 
     return (
-        <Menu as="div" ref={ref} className="relative inline-block text-left z-30">
+        <Menu as="div" ref={ref} className="relative inline-block text-left z-30 sm:w-[150px] sm:max-w-[250px]">
             <div>
                 <Menu.Button 
                     className="
@@ -75,7 +72,7 @@ const Dropdown = () => {
                 show={isOpen} // show transition only when dropdown is open
             >
                 <Menu.Items
-                    className="absolute right-0 w-60 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute right-0 w-60 mt-2 origin-top-right bg-white divide-y-2 divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <MenuItem>
                         <span className='font-bold text-[15px]'>{user?.name}</span>
@@ -94,19 +91,9 @@ const Dropdown = () => {
 
 const MenuItem = ({ children }: { children: ReactNode }) => {
     return (
-        <div className="py-1">
-            <Menu.Item>
-                {({ active }: { active: boolean }) => (
-                    <a
-                        href="#"
-                        className={classNames(
-                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm'
-                        )}
-                    >
-                        {children}
-                    </a>
-                )}
+        <div className="block px-4 py-3 text-sm">
+            <Menu.Item >
+                {children}
             </Menu.Item>
         </div>
     );
