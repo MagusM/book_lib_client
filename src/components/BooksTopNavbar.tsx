@@ -38,7 +38,7 @@ const BooksTopNavbar: React.FC = () => {
             <div className="hidden sm:flex items-center order-2 sm:order-3 self-end sm:self-center">
                 <div className="flex items-center sm:mr-4 cursor-pointer" onClick={toggleShowWishlist}>
                     <div className='mr-2'>
-                    <WishlistIcon className="iconColorSecondary" width={24} height={24} />
+                        <WishlistIcon className={`${showWishlist ? 'iconColorPrimary' : 'iconColorSecondary'}`} width={24} height={24} />
                 </div>
                 <div className="text-gray-700 hidden sm:block font-medium">{t("BookPage.myWishList")}</div>
                 </div>

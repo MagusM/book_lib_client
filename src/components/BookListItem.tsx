@@ -60,7 +60,7 @@ const BookListItem: React.FC<Props> = ({ book }) => {
                 <img className="object-fill h-full w-full rounded-xl" src={book.imageUrl} alt={`Cover for ${book.title}`} />
             </div>
             <div className="h-1/4 p-2 w-full flex flex-col justify-between">
-                <h3 className="text-sm sm:text-[15px] font-bold text-secondary w-full line-clamp-2 sm:line-clamp-5">{book.title}</h3>
+                <h3 className="text-sm sm:text-[15px] font-bold text-secondary w-full line-clamp-2 sm:line-clamp-2">{book.title}</h3>
                 <p className="text-tertiary text-[12px] font-bold w-full truncate line-clamp-2 sm:line-clamp-5 mt-2 sm:mb-0 sm:mt-auto">by {book.author}</p>
             </div>
         </div>

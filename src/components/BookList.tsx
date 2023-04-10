@@ -90,12 +90,12 @@ const BooksList: React.FC = () => {
     return (
         <div className="flex flex-col min-h-full h-screen justify-start items-start p-3 bg-[#F2F4F9]">
             {search && (
-                <div className="text-secondary font-bold my-4 text-[14px] sm:px-[300px]">
+                <div className="text-secondary font-bold my-4 text-[14px] sm:px-[100px] lg:px-[200px]">
                     {displayedBooks.length} results for &quot;{search}&quot;
                 </div>
             )}
             {showWishlist && wishlist && (
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[300px] sm:gap-6 mx-auto">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[100px] lg:px-[200px] sm:gap-6 mx-auto">
                     {Array.from(new Set(wishlist)).map((book: BookInterface) => (
                         <BookListItem key={book.id + Math.random()} book={book} />
                     ))}
