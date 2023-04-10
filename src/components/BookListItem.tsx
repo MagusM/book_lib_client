@@ -43,7 +43,7 @@ const BookListItem: React.FC<Props> = ({ book }) => {
 
 
     return (
-        <div className="w-[180px] sm:w-[280px] flex flex-col justify-between border border-gray-100 rounded-xl overflow-hidden p-2 bg-white">
+        <div className="w-[180px] sm:w-[230px] 2xl:w-[280px] flex flex-col justify-between border border-gray-100 rounded-xl overflow-hidden p-2 bg-white">
             <div className='relative h-3/4 w-full p-2 sm:min-h-[85%]'>
                 <div 
                     className='

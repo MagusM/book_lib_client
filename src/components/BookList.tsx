@@ -103,8 +103,8 @@ const BooksList: React.FC = () => {
             )}
             {!showWishlist && (
             <>
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[300px] sm:gap-6 mx-auto">
-                        {books.map((book: BookInterface) => (
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 w-full sm:py-10 sm:px-[100px] lg:px-[200px] sm:gap-6 mx-auto">
+                        {displayedBooks.map((book: BookInterface) => (
                             <BookListItem key={book.id} book={book} />
                         ))}
                     </div>
