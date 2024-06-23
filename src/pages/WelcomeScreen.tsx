@@ -48,9 +48,7 @@ const WelcomeScreen: React.FC = () => {
       try {
         const data = await login(usernameRef.current);
         const { user, token } = data as any;
-        // Save the token to local storage
         localStorage.setItem("token", token);
-        // Add the token to axios request headers
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         dispatch(setUser(user));

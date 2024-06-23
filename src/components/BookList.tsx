@@ -25,7 +25,7 @@ const BooksList: React.FC = () => {
       });
       if (!response) return;
       const { data } = response;
-      console.log(data);
+
       const bookList = data.map((book: Book) => ({
         id: book.id,
         title: book.title,
@@ -49,13 +49,9 @@ const BooksList: React.FC = () => {
       return;
     }
     const data = await fetchWishlistedBooks({ userId: String(user.id) });
-    console.log("fetchWlistedBooks", data);
-    console.log("wishlist state", wishlist);
     if (data && data.wishlist.books) {
       dispatch(syncWishlist(data.wishlist.books));
     }
-
-    console.log("wishlist", wishlist);
   }, [user, dispatch]);
 
   useEffect(() => {
@@ -85,7 +81,6 @@ const BooksList: React.FC = () => {
   }, [showWishlist, filteredBooks, wishlist]);
 
   const paginate = (pageNumber: number) => {
-    console.log(`paginate: ${pageNumber}`);
     setCurrentPage(pageNumber);
   };
 
@@ -123,7 +118,6 @@ const BooksList: React.FC = () => {
             <div
               className="bg-white text-gray-700 font-bold py-2 px-4 border rounded-r-full ml-2 cursor-pointer"
               onClick={() => {
-                console.log("clicked");
                 paginate(currentPage + 1);
               }}
             >
