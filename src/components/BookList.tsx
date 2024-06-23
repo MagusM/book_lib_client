@@ -59,7 +59,7 @@ const BooksList: React.FC = () => {
   }, [user, dispatch]);
 
   useEffect(() => {
-    // fetchWlistedBooks();
+    fetchWlistedBooks();
   }, [fetchWlistedBooks]);
 
   const filteredBooks = useMemo(() => {
