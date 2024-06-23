@@ -1,20 +1,23 @@
 import axios from "axios";
 
-// Create an Axios instance with default configuration
-const axiosInstance = axios.create();
+const axiosInstance = axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-// Add a response interceptor to the Axios instance
 axiosInstance.interceptors.response.use(
-    (response) => response, // Do nothing for successful responses
-    (error) => {
-        if (error.response.status === 401 || error.response.body === 'Unauthorized') {
-            // Redirect to the homepage for unauthorized responses
-            window.location.href = '/';
-        }
-        return Promise.reject(error);
+  (response) => response,
+  (error) => {
+    if (
+      error.response &&
+      (error.response.status === 401 || error.response.data === "Unauthorized")
+    ) {
+      window.location.href = "/";
     }
+    return Promise.reject(error);
+  }
 );
 
-export {
-    axiosInstance
-}
+export { axiosInstance };

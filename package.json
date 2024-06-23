@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "Books Frontend",
+  "version": "1.0.0",
   "author": {
     "name": "Simon Mor",
     "email": "simomor@gmail.com",
@@ -10,8 +10,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "v1",
-    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.18",
@@ -27,19 +27,19 @@
     "react-i18next": "^12.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
     "react-toastify": "^9.1.2",
+    "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
